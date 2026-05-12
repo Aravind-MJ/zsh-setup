@@ -1,5 +1,5 @@
 format = """
-[╭─](bold #7df9ff)$os$username$hostname$directory$git_branch$git_status$nodejs$bun$php$python$dotnet$package$cmd_duration$jobs$battery
+[╭─](bold #7df9ff)${custom.cockpit_segments}
 [╰─](bold #7df9ff)$character"""
 
 right_format = "$time$status"
@@ -23,7 +23,7 @@ dark = "#1e1e2e"
 [os]
 disabled = false
 style = "bg:cyan fg:dark bold"
-format = "[](fg:dark bg:cyan)[ $symbol ]($style)[](fg:cyan bg:dark)"
+format = "[ $symbol ]($style)"
 
 [os.symbols]
 Ubuntu = ""
@@ -34,28 +34,28 @@ Linux = ""
 show_always = false
 style_user = "bg:green fg:dark bold"
 style_root = "bg:red fg:dark bold"
-format = "[](fg:dark bg:green)[ $user ]($style)[](fg:green bg:dark)"
+format = "[ $user ]($style)"
 
 [hostname]
 ssh_only = true
 style = "bg:purple fg:dark bold"
-format = "[](fg:dark bg:purple)[@$hostname ]($style)[](fg:purple bg:dark)"
+format = "[@$hostname ]($style)"
 
 [directory]
 style = "bg:blue fg:dark bold"
 read_only = " 󰌾"
 truncation_length = 4
 truncate_to_repo = false
-format = "[](fg:dark bg:blue)[  $path$read_only ]($style)[](fg:blue bg:dark)"
+format = "[  $path$read_only ]($style)"
 
 [git_branch]
 symbol = ""
 style = "bg:purple fg:dark bold"
-format = "[](fg:dark bg:purple)[$symbol $branch ]($style)"
+format = "[$symbol $branch ]($style)"
 
 [git_status]
 style = "bg:purple fg:dark bold"
-format = "[$all_status$ahead_behind ]($style)[](fg:purple bg:dark)"
+format = "[$all_status$ahead_behind ]($style)"
 conflicted = "≠"
 ahead = "⇡${count}"
 behind = "⇣${count}"
@@ -71,42 +71,42 @@ deleted = "✘${count}"
 [nodejs]
 symbol = "⬢"
 style = "bg:green fg:dark bold"
-format = "[](fg:dark bg:green)[ $symbol $version ]($style)[](fg:green bg:dark)"
+format = "[ $symbol $version ]($style)"
 
 [bun]
 symbol = "🥟"
 style = "bg:orange fg:dark bold"
-format = "[](fg:dark bg:orange)[ $symbol $version ]($style)[](fg:orange bg:dark)"
+format = "[ $symbol $version ]($style)"
 
 [php]
 symbol = ""
 style = "bg:purple fg:dark bold"
-format = "[](fg:dark bg:purple)[ $symbol $version ]($style)[](fg:purple bg:dark)"
+format = "[ $symbol $version ]($style)"
 
 [python]
 symbol = ""
 style = "bg:yellow fg:dark bold"
-format = "[](fg:dark bg:yellow)[ $symbol $version( $virtualenv) ]($style)[](fg:yellow bg:dark)"
+format = "[ $symbol $version( $virtualenv) ]($style)"
 
 [dotnet]
 symbol = ""
 style = "bg:blue fg:dark bold"
-format = "[](fg:dark bg:blue)[ $symbol $version ]($style)[](fg:blue bg:dark)"
+format = "[ $symbol $version ]($style)"
 
 [package]
 symbol = "󰏗"
 style = "bg:pink fg:dark bold"
-format = "[](fg:dark bg:pink)[ $symbol $version ]($style)[](fg:pink bg:dark)"
+format = "[ $symbol $version ]($style)"
 
 [cmd_duration]
 min_time = 1500
 style = "bg:yellow fg:dark bold"
-format = "[](fg:dark bg:yellow)[ took $duration ]($style)[](fg:yellow bg:dark)"
+format = "[ took $duration ]($style)"
 
 [jobs]
 symbol = ""
 style = "bg:cyan fg:dark bold"
-format = "[](fg:dark bg:cyan)[ $symbol $number ]($style)[](fg:cyan bg:dark)"
+format = "[ $symbol $number ]($style)"
 
 [battery]
 full_symbol = "󰁹"
@@ -122,16 +122,63 @@ style = "bg:red fg:dark bold"
 threshold = 60
 style = "bg:yellow fg:dark bold"
 
+[custom.cockpit_segments]
+description = "Rendered left prompt segments joined with two-step powerline glue"
+when = true
+shell = ["bash", "--noprofile", "--norc"]
+unsafe_no_escape = true
+format = "$output"
+command = '''
+declare -A colors=(
+  [os]="125;249;255"
+  [username]="80;250;123"
+  [hostname]="189;147;249"
+  [directory]="93;169;255"
+  [git_branch]="189;147;249"
+  [git_status]="189;147;249"
+  [nodejs]="80;250;123"
+  [bun]="255;184;108"
+  [php]="189;147;249"
+  [python]="241;250;140"
+  [dotnet]="93;169;255"
+  [package]="255;121;198"
+  [cmd_duration]="241;250;140"
+  [jobs]="125;249;255"
+  [battery]="255;85;85"
+)
+
+modules=(os username hostname directory git_branch git_status nodejs bun php python dotnet package cmd_duration jobs battery)
+terminal_bg="30;30;46"
+prev_color=""
+prompt=""
+
+for module in "${modules[@]}"; do
+  segment="$(starship module "$module")"
+  [[ -n "$segment" ]] || continue
+
+  color="${colors[$module]}"
+  if [[ -n "$prev_color" && "$prev_color" != "$color" ]]; then
+    prompt+=$'\033[38;2;'"$prev_color"$'m\033[48;2;'"$terminal_bg"$'m'
+    prompt+=$'\033[38;2;'"$terminal_bg"$'m\033[48;2;'"$color"$'m\033[0m'
+  fi
+
+  prompt+="$segment"
+  prev_color="$color"
+done
+
+printf '%s' "$prompt"
+'''
+
 [time]
 disabled = false
 time_format = "%H:%M:%S"
-style = "bg:gray fg:dark bold"
-format = "[](fg:dark bg:gray)[ $time ]($style)[](fg:gray bg:dark)"
+style = "fg:gray bold"
+format = "[ $time ]($style)"
 
 [status]
 disabled = false
 symbol = "✘"
-format = "[](fg:dark bg:red)[$symbol $status ]($style)[](fg:red bg:dark)"
+format = "[](fg:dark bg:red)[$symbol $status ]($style)"
 style = "bg:red fg:dark bold"
 
 [character]
