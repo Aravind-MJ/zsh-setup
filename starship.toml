@@ -22,8 +22,8 @@ dark = "#1e1e2e"
 
 [os]
 disabled = false
-style = "bg:dark fg:cyan bold"
-format = "[ $symbol ]($style)"
+style = "bg:cyan fg:dark bold"
+format = "[](fg:dark bg:cyan)[ $symbol ]($style)[](fg:cyan bg:dark)"
 
 [os.symbols]
 Ubuntu = ""
@@ -32,14 +32,14 @@ Linux = ""
 
 [username]
 show_always = false
-style_user = "bg:dark fg:cyan bold"
+style_user = "bg:green fg:dark bold"
 style_root = "bg:red fg:dark bold"
-format = "[ $user ]($style)"
+format = "[](fg:dark bg:green)[ $user ]($style)[](fg:green bg:dark)"
 
 [hostname]
 ssh_only = true
-style = "bg:dark fg:purple bold"
-format = "[@$hostname ]($style)"
+style = "bg:purple fg:dark bold"
+format = "[](fg:dark bg:purple)[@$hostname ]($style)[](fg:purple bg:dark)"
 
 [directory]
 style = "bg:blue fg:dark bold"
@@ -70,69 +70,69 @@ deleted = "✘${count}"
 
 [nodejs]
 symbol = "⬢"
-style = "bg:dark fg:green bold"
-format = "[ $symbol $version ]($style)"
+style = "bg:green fg:dark bold"
+format = "[](fg:dark bg:green)[ $symbol $version ]($style)[](fg:green bg:dark)"
 
 [bun]
 symbol = "🥟"
-style = "bg:dark fg:orange bold"
-format = "[ $symbol $version ]($style)"
+style = "bg:orange fg:dark bold"
+format = "[](fg:dark bg:orange)[ $symbol $version ]($style)[](fg:orange bg:dark)"
 
 [php]
 symbol = ""
-style = "bg:dark fg:purple bold"
-format = "[ $symbol $version ]($style)"
+style = "bg:purple fg:dark bold"
+format = "[](fg:dark bg:purple)[ $symbol $version ]($style)[](fg:purple bg:dark)"
 
 [python]
 symbol = ""
-style = "bg:dark fg:yellow bold"
-format = "[ $symbol $version( $virtualenv) ]($style)"
+style = "bg:yellow fg:dark bold"
+format = "[](fg:dark bg:yellow)[ $symbol $version( $virtualenv) ]($style)[](fg:yellow bg:dark)"
 
 [dotnet]
 symbol = ""
-style = "bg:dark fg:blue bold"
-format = "[ $symbol $version ]($style)"
+style = "bg:blue fg:dark bold"
+format = "[](fg:dark bg:blue)[ $symbol $version ]($style)[](fg:blue bg:dark)"
 
 [package]
 symbol = "󰏗"
-style = "bg:dark fg:pink bold"
-format = "[ $symbol $version ]($style)"
+style = "bg:pink fg:dark bold"
+format = "[](fg:dark bg:pink)[ $symbol $version ]($style)[](fg:pink bg:dark)"
 
 [cmd_duration]
 min_time = 1500
-style = "fg:yellow bold"
-format = "[ took $duration]($style)"
+style = "bg:yellow fg:dark bold"
+format = "[](fg:dark bg:yellow)[ took $duration ]($style)[](fg:yellow bg:dark)"
 
 [jobs]
 symbol = ""
-style = "fg:cyan bold"
-format = "[ $symbol $number]($style)"
+style = "bg:cyan fg:dark bold"
+format = "[](fg:dark bg:cyan)[ $symbol $number ]($style)[](fg:cyan bg:dark)"
 
 [battery]
 full_symbol = "󰁹"
 charging_symbol = "󰂄"
 discharging_symbol = "󰂃"
-format = "[ $symbol $percentage]($style)"
+format = "[ $symbol $percentage ]($style)"
 
 [[battery.display]]
 threshold = 30
-style = "fg:red bold"
+style = "bg:red fg:dark bold"
 
 [[battery.display]]
 threshold = 60
-style = "fg:yellow bold"
+style = "bg:yellow fg:dark bold"
 
 [time]
 disabled = false
 time_format = "%H:%M:%S"
-style = "fg:gray bold"
-format = "[ $time ]($style)"
+style = "bg:gray fg:dark bold"
+format = "[](fg:dark bg:gray)[ $time ]($style)[](fg:gray bg:dark)"
 
 [status]
 disabled = false
 symbol = "✘"
-format = "[$symbol $status ]($style)"
-style = "fg:red bold"
+format = "[](fg:dark bg:red)[$symbol $status ]($style)[](fg:red bg:dark)"
+style = "bg:red fg:dark bold"
 
 [character]
 success_symbol = "[❯](bold #50fa7b) "
