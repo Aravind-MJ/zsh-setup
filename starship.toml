@@ -51,7 +51,7 @@ format = "[  $path$read_only ]($style)"
 [git_branch]
 symbol = ""
 style = "bg:purple fg:dark bold"
-format = "[$symbol $branch ]($style)"
+format = "[ $symbol $branch ]($style)"
 
 [git_status]
 style = "bg:purple fg:dark bold"
