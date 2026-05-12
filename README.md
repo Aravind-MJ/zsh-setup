@@ -1,21 +1,79 @@
 # Zsh Cockpit Setup
 
-Portable Oh My Zsh setup with Starship, fzf-tab, syntax highlighting, autosuggestions, eza, bat, zoxide, direnv, and a custom cockpit prompt.
+Portable Oh My Zsh setup with a Starship cockpit prompt, `fzf-tab`, syntax highlighting, autosuggestions, `eza`, `bat`, `zoxide`, and `direnv`.
 
-## Use From A Gist
+The goal is a dramatic terminal experience that is still reproducible across machines.
 
-Give an agent this instruction:
-
-```text
-Install my zsh setup from this gist: <GIST_URL>. Download the files into a temporary zsh-setup folder and run install.sh. Do not copy secrets or machine-specific aliases into the gist setup.
-```
-
-Manual install after downloading/cloning the gist:
+## Quick Install
 
 ```sh
-chmod +x install.sh
+git clone git@github.com:Aravind-MJ/zsh-setup.git
+cd zsh-setup
 ./install.sh
 ```
+
+Open a new terminal, or reload manually:
+
+```sh
+source ~/.zshrc
+```
+
+## Agent Install Prompt
+
+Give an agent this instruction on a new machine:
+
+```text
+Install my zsh setup from git@github.com:Aravind-MJ/zsh-setup.git. Clone it, run ./install.sh, preserve any machine-specific secrets by putting them in ~/.zshrc.local, and verify zsh starts cleanly.
+```
+
+## What Gets Installed
+
+The installer applies a portable `.zshrc`, Starship config, fzf integration, and an Oh My Zsh theme wrapper.
+
+Community plugins:
+
+- `fast-syntax-highlighting`
+- `fzf-tab`
+- `forgit`
+- `zsh-you-should-use`
+- `zsh-autosuggestions`
+- `zsh-history-substring-search`
+- `zsh-completions`
+- `zsh-abbr`
+- `zsh-bat`
+- `zsh-github-copilot`
+
+Oh My Zsh built-ins enabled:
+
+- `git`
+- `command-not-found`
+- `zoxide`
+- `direnv`
+- `eza`
+- `colored-man-pages`
+- `extract`
+- `bgnotify`
+
+CLI tools installed via Cargo when available:
+
+- `starship`
+- `eza`
+- `bat`
+- `zoxide`
+
+`fzf` is installed from upstream GitHub if missing.
+
+## Requirements
+
+- `zsh`
+- `git`
+- `curl`
+- A Nerd Font for icons and powerline separators
+- Optional but recommended: Rust/Cargo for local binary installs
+
+If `cargo` is missing, install `starship`, `eza`, `bat`, and `zoxide` with your package manager before or after running the installer.
+
+`direnv` is not installed automatically because it is best installed through the system package manager.
 
 ## Files
 
@@ -25,6 +83,28 @@ chmod +x install.sh
 - `starship-cockpit.zsh-theme`: Oh My Zsh theme wrapper for Starship
 - `fzf.zsh`: fzf keybindings without conflicting with `fzf-tab`
 
+## Customization
+
+Machine-specific settings should go here:
+
+```sh
+~/.zshrc.local
+```
+
+Use it for secrets, work aliases, PATH entries, NVM/Pyenv setup, project exports, and host-specific tooling.
+
+Prompt styling lives here:
+
+```sh
+~/.config/starship.toml
+```
+
+Oh My Zsh selects the Starship wrapper theme here:
+
+```sh
+~/.oh-my-zsh/custom/themes/starship-cockpit.zsh-theme
+```
+
 ## Backup And Revert
 
 The installer backs up existing files to:
@@ -33,11 +113,18 @@ The installer backs up existing files to:
 ~/.zsh-setup-backups/<timestamp>/
 ```
 
-Each backup includes `RESTORE_COMMAND.txt`.
+Each backup includes:
+
+```sh
+RESTORE_COMMAND.txt
+```
+
+To revert, open that file and run the listed commands.
 
 ## Notes
 
-- Requires a Nerd Font for icons and powerline separators.
-- If `cargo` is available, the installer installs `starship`, `eza`, and `bat` locally.
-- If `cargo` is missing, install `starship`, `eza`, and `bat` with your package manager first.
-- Put machine-specific aliases, secrets, NVM/Pyenv paths, work aliases, and project exports in `~/.zshrc.local`.
+- The setup intentionally avoids storing secrets or work-specific exports.
+- The `.zshrc` sources `~/.zshrc.local` if it exists.
+- `fzf-tab` owns Tab completion; fzf's default Tab completion is intentionally disabled to avoid conflicts.
+- `zsh-bat` aliases `cat` to `bat`; use `rcat` for the real `cat`.
+- The `eza` plugin aliases `ls`, `ll`, and related listing commands.
