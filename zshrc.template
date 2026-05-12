@@ -1,0 +1,50 @@
+# Portable Oh My Zsh cockpit setup.
+# Machine-local aliases and secrets should go in ~/.zshrc.local.
+
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME="starship-cockpit"
+
+ZOXIDE_CMD_OVERRIDE=cd
+
+# Commands used by plugins must be on PATH before Oh My Zsh loads them.
+export PATH="$HOME/.cargo/bin:$HOME/.local/bin:$HOME/.opencode/bin:$HOME/.config/herd-lite/bin:$PATH"
+
+plugins=(
+  git
+  command-not-found
+  zsh-completions
+  fzf-tab
+  zsh-autosuggestions
+  zsh-history-substring-search
+  zsh-abbr
+  zsh-you-should-use
+  forgit
+  zoxide
+  direnv
+  eza
+  colored-man-pages
+  zsh-bat
+  extract
+  bgnotify
+  zsh-github-copilot
+  fast-syntax-highlighting
+)
+
+zstyle ':completion:*' menu no
+zstyle ':completion:*:descriptions' format '[%d]'
+zstyle ':omz:plugins:eza' 'dirs-first' yes
+zstyle ':omz:plugins:eza' 'git-status' yes
+zstyle ':omz:plugins:eza' 'icons' yes
+zstyle ':omz:plugins:eza' 'color-scale' all
+zstyle ':fzf-tab:*' switch-group '<' '>'
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color=always --icons=auto --group-directories-first -1 $realpath 2>/dev/null'
+zstyle ':fzf-tab:complete:*:*' fzf-preview '[[ -d $realpath ]] && eza --color=always --icons=auto --group-directories-first -1 $realpath 2>/dev/null || bat --color=always --style=numbers --line-range=:200 $realpath 2>/dev/null'
+
+source "$ZSH/oh-my-zsh.sh"
+
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
+
+export DEFAULT_USER=$USER
+
+# Keep personal machine-specific settings outside the portable gist setup.
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"

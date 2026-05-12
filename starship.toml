@@ -1,0 +1,140 @@
+format = """
+[╭─](bold #7df9ff)$os$username$hostname$directory$git_branch$git_status$nodejs$bun$php$python$dotnet$package$cmd_duration$jobs$battery
+[╰─](bold #7df9ff)$character"""
+
+right_format = "$time$status"
+add_newline = true
+command_timeout = 1200
+
+palette = "cockpit"
+
+[palettes.cockpit]
+cyan = "#7df9ff"
+blue = "#5da9ff"
+purple = "#bd93f9"
+pink = "#ff79c6"
+green = "#50fa7b"
+yellow = "#f1fa8c"
+orange = "#ffb86c"
+red = "#ff5555"
+gray = "#6c7086"
+dark = "#1e1e2e"
+
+[os]
+disabled = false
+style = "bg:dark fg:cyan bold"
+format = "[ $symbol ]($style)"
+
+[os.symbols]
+Ubuntu = ""
+Windows = ""
+Linux = ""
+
+[username]
+show_always = false
+style_user = "bg:dark fg:cyan bold"
+style_root = "bg:red fg:dark bold"
+format = "[ $user ]($style)"
+
+[hostname]
+ssh_only = true
+style = "bg:dark fg:purple bold"
+format = "[@$hostname ]($style)"
+
+[directory]
+style = "bg:blue fg:dark bold"
+read_only = " 󰌾"
+truncation_length = 4
+truncate_to_repo = false
+format = "[](fg:dark bg:blue)[  $path$read_only ]($style)[](fg:blue bg:dark)"
+
+[git_branch]
+symbol = ""
+style = "bg:purple fg:dark bold"
+format = "[](fg:dark bg:purple)[$symbol $branch ]($style)"
+
+[git_status]
+style = "bg:purple fg:dark bold"
+format = "[$all_status$ahead_behind ]($style)[](fg:purple bg:dark)"
+conflicted = "≠"
+ahead = "⇡${count}"
+behind = "⇣${count}"
+diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+up_to_date = ""
+untracked = "?${count}"
+stashed = "$${count}"
+modified = "!${count}"
+staged = "+${count}"
+renamed = "»${count}"
+deleted = "✘${count}"
+
+[nodejs]
+symbol = "⬢"
+style = "bg:dark fg:green bold"
+format = "[ $symbol $version ]($style)"
+
+[bun]
+symbol = "🥟"
+style = "bg:dark fg:orange bold"
+format = "[ $symbol $version ]($style)"
+
+[php]
+symbol = ""
+style = "bg:dark fg:purple bold"
+format = "[ $symbol $version ]($style)"
+
+[python]
+symbol = ""
+style = "bg:dark fg:yellow bold"
+format = "[ $symbol $version( $virtualenv) ]($style)"
+
+[dotnet]
+symbol = ""
+style = "bg:dark fg:blue bold"
+format = "[ $symbol $version ]($style)"
+
+[package]
+symbol = "󰏗"
+style = "bg:dark fg:pink bold"
+format = "[ $symbol $version ]($style)"
+
+[cmd_duration]
+min_time = 1500
+style = "fg:yellow bold"
+format = "[ took $duration]($style)"
+
+[jobs]
+symbol = ""
+style = "fg:cyan bold"
+format = "[ $symbol $number]($style)"
+
+[battery]
+full_symbol = "󰁹"
+charging_symbol = "󰂄"
+discharging_symbol = "󰂃"
+format = "[ $symbol $percentage]($style)"
+
+[[battery.display]]
+threshold = 30
+style = "fg:red bold"
+
+[[battery.display]]
+threshold = 60
+style = "fg:yellow bold"
+
+[time]
+disabled = false
+time_format = "%H:%M:%S"
+style = "fg:gray bold"
+format = "[ $time ]($style)"
+
+[status]
+disabled = false
+symbol = "✘"
+format = "[$symbol $status ]($style)"
+style = "fg:red bold"
+
+[character]
+success_symbol = "[❯](bold #50fa7b) "
+error_symbol = "[❯](bold #ff5555) "
+vimcmd_symbol = "[❮](bold #bd93f9) "
