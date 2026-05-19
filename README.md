@@ -23,7 +23,7 @@ source ~/.zshrc
 Give an agent this instruction on a new machine:
 
 ```text
-Install my zsh setup from git@github.com:Aravind-MJ/zsh-setup.git. Clone it, run ./install.sh, preserve any machine-specific secrets by putting them in ~/.zshrc.local, and verify zsh starts cleanly.
+Install my zsh setup from git@github.com:Aravind-MJ/zsh-setup.git. Clone it, ask me which timezone or UTC offset the Starship time segment should use, run ./install.sh, update ~/.config/starship.toml with that timezone during install, preserve any machine-specific secrets by putting them in ~/.zshrc.local, and verify zsh starts cleanly.
 ```
 
 ## What Gets Installed
