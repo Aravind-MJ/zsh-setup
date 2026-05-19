@@ -172,7 +172,7 @@ printf '%s' "$prompt"
 [time]
 disabled = false
 time_format = "%H:%M:%S"
-style = "fg:gray bold"
+style = "bg:dark fg:gray bold"
 format = "[ $time ]($style)"
 
 [status]
@@ -182,6 +182,7 @@ format = "[](fg:dark bg:red)[$symbol $status ]($style)"
 style = "bg:red fg:dark bold"
 
 [character]
-success_symbol = "[❯](bold #50fa7b) "
-error_symbol = "[❯](bold #ff5555) "
-vimcmd_symbol = "[❮](bold #bd93f9) "
+format = "$symbol"
+success_symbol = "[❯](bold #50fa7b)"
+error_symbol = "[❯](bold #ff5555)"
+vimcmd_symbol = "[❮](bold #bd93f9)"
