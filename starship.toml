@@ -20,18 +20,8 @@ red = "#ff5555"
 gray = "#6c7086"
 dark = "#1e1e2e"
 
-[os]
-disabled = false
-style = "bg:cyan fg:dark bold"
-format = "[ $symbol ]($style)"
-
-[os.symbols]
-Ubuntu = ""
-Windows = ""
-Linux = ""
-
 [username]
-show_always = false
+show_always = true
 style_user = "bg:green fg:dark bold"
 style_root = "bg:red fg:dark bold"
 format = "[ $user ]($style)"
@@ -130,7 +120,6 @@ unsafe_no_escape = true
 format = "$output"
 command = '''
 declare -A colors=(
-  [os]="125;249;255"
   [username]="80;250;123"
   [hostname]="189;147;249"
   [directory]="93;169;255"
@@ -147,7 +136,7 @@ declare -A colors=(
   [battery]="255;85;85"
 )
 
-modules=(os username hostname directory git_branch git_status nodejs bun php python dotnet package cmd_duration jobs battery)
+modules=(username hostname directory git_branch git_status nodejs bun php python dotnet package cmd_duration jobs battery)
 terminal_bg="30;30;46"
 prev_color=""
 prompt=""
