@@ -1,6 +1,6 @@
-# Zsh Cockpit Setup
+# Zsh Setup
 
-Portable Oh My Zsh setup with a Starship cockpit prompt, `fzf-tab`, syntax highlighting, autosuggestions, `eza`, `bat`, `zoxide`, and `direnv`.
+Portable Oh My Zsh setup with the [Headline](https://gist.github.com/Aravind-MJ/46d7711fa124227249aaf8540ed1d5f6) prompt, `fzf-tab`, syntax highlighting, autosuggestions, `eza`, `bat`, `zoxide`, and `direnv`.
 
 The goal is a dramatic terminal experience that is still reproducible across machines.
 
@@ -23,12 +23,12 @@ source ~/.zshrc
 Give an agent this instruction on a new machine:
 
 ```text
-Install my zsh setup from git@github.com:Aravind-MJ/zsh-setup.git. Clone it, ask me which timezone or UTC offset the Starship time segment should use, run ./install.sh, update ~/.config/starship.toml with that timezone during install, preserve any machine-specific secrets by putting them in ~/.zshrc.local, and verify zsh starts cleanly.
+Install my zsh setup from git@github.com:Aravind-MJ/zsh-setup.git. Clone it, run ./install.sh, preserve any machine-specific secrets by putting them in ~/.zshrc.local, and verify zsh starts cleanly.
 ```
 
 ## What Gets Installed
 
-The installer applies a portable `.zshrc`, Starship config, fzf integration, and an Oh My Zsh theme wrapper.
+The installer applies a portable `.zshrc`, the Headline Oh My Zsh theme, and fzf integration.
 
 Community plugins:
 
@@ -56,7 +56,6 @@ Oh My Zsh built-ins enabled:
 
 CLI tools installed via Cargo when available:
 
-- `starship`
 - `eza`
 - `bat`
 - `zoxide`
@@ -68,10 +67,10 @@ CLI tools installed via Cargo when available:
 - `zsh`
 - `git`
 - `curl`
-- A Nerd Font for icons and powerline separators
+- A Nerd Font for icons
 - Optional but recommended: Rust/Cargo for local binary installs
 
-If `cargo` is missing, install `starship`, `eza`, `bat`, and `zoxide` with your package manager before or after running the installer.
+If `cargo` is missing, install `eza`, `bat`, and `zoxide` with your package manager before or after running the installer.
 
 `direnv` is not installed automatically because it is best installed through the system package manager.
 
@@ -79,8 +78,7 @@ If `cargo` is missing, install `starship`, `eza`, `bat`, and `zoxide` with your 
 
 - `install.sh`: installs tools/plugins, backs up existing config, applies setup
 - `zshrc.template`: portable `.zshrc`
-- `starship.toml`: cockpit prompt configuration
-- `starship-cockpit.zsh-theme`: Oh My Zsh theme wrapper for Starship
+- `headline.zsh-theme`: Headline prompt (from the gist above)
 - `fzf.zsh`: fzf keybindings without conflicting with `fzf-tab`
 
 ## Customization
@@ -93,17 +91,13 @@ Machine-specific settings should go here:
 
 Use it for secrets, work aliases, PATH entries, NVM/Pyenv setup, project exports, and host-specific tooling.
 
-Prompt styling lives here:
+Prompt styling lives in the Headline theme. Oh My Zsh selects it here:
 
 ```sh
-~/.config/starship.toml
+~/.oh-my-zsh/custom/themes/headline.zsh-theme
 ```
 
-Oh My Zsh selects the Starship wrapper theme here:
-
-```sh
-~/.oh-my-zsh/custom/themes/starship-cockpit.zsh-theme
-```
+If you edit variables in `~/.zshrc`, source the theme first, then set the Headline `HL_*` variables.
 
 ## Backup And Revert
 

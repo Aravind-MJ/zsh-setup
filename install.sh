@@ -41,12 +41,15 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 
 if need_cmd cargo; then
-  need_cmd starship || cargo install starship --locked
+  if need_cmd starship; then
+    log "Removing leftover Starship"
+    cargo uninstall starship
+  fi
   need_cmd eza || cargo install eza
   need_cmd bat || cargo install bat
   need_cmd zoxide || cargo install zoxide --locked
 else
-  log "cargo not found; skipping starship/eza/bat/zoxide install. Install them manually if missing."
+  log "cargo not found; skipping eza/bat/zoxide install. Install them manually if missing."
 fi
 
 if ! need_cmd fzf; then
@@ -67,7 +70,6 @@ mkdir -p "$ZSH_CUSTOM_DIR/plugins" "$ZSH_CUSTOM_DIR/themes" "$HOME/.config" "$BA
 
 [ -f "$HOME/.zshrc" ] && cp "$HOME/.zshrc" "$BACKUP_DIR/.zshrc"
 [ -f "$HOME/.fzf.zsh" ] && cp "$HOME/.fzf.zsh" "$BACKUP_DIR/.fzf.zsh"
-[ -f "$HOME/.config/starship.toml" ] && cp "$HOME/.config/starship.toml" "$BACKUP_DIR/starship.toml"
 
 clone_or_update https://github.com/zdharma-continuum/fast-syntax-highlighting.git "$ZSH_CUSTOM_DIR/plugins/fast-syntax-highlighting"
 clone_or_update https://github.com/Aloxaf/fzf-tab.git "$ZSH_CUSTOM_DIR/plugins/fzf-tab"
@@ -81,17 +83,17 @@ git -C "$ZSH_CUSTOM_DIR/plugins/zsh-abbr" submodule update --init --recursive >/
 clone_or_update https://github.com/fdellwing/zsh-bat.git "$ZSH_CUSTOM_DIR/plugins/zsh-bat"
 clone_or_update https://github.com/loiccoyle/zsh-github-copilot.git "$ZSH_CUSTOM_DIR/plugins/zsh-github-copilot"
 
-cp "$SETUP_DIR/starship-cockpit.zsh-theme" "$ZSH_CUSTOM_DIR/themes/starship-cockpit.zsh-theme"
-cp "$SETUP_DIR/starship.toml" "$HOME/.config/starship.toml"
+cp "$SETUP_DIR/headline.zsh-theme" "$ZSH_CUSTOM_DIR/themes/headline.zsh-theme"
+rm -f "$ZSH_CUSTOM_DIR/themes/starship-cockpit.zsh-theme" "$HOME/.config/starship.toml"
+rm -rf "$HOME/.cache/starship"
 cp "$SETUP_DIR/fzf.zsh" "$HOME/.fzf.zsh"
 cp "$SETUP_DIR/zshrc.template" "$HOME/.zshrc"
 
 cat > "$BACKUP_DIR/RESTORE_COMMAND.txt" <<EOF
 cp "$BACKUP_DIR/.zshrc" "$HOME/.zshrc"
 [ -f "$BACKUP_DIR/.fzf.zsh" ] && cp "$BACKUP_DIR/.fzf.zsh" "$HOME/.fzf.zsh"
-[ -f "$BACKUP_DIR/starship.toml" ] && cp "$BACKUP_DIR/starship.toml" "$HOME/.config/starship.toml"
 EOF
 
-log "Installed cockpit zsh setup"
+log "Installed zsh setup"
 log "Backup: $BACKUP_DIR"
 log "Open a new shell or run: source ~/.zshrc"

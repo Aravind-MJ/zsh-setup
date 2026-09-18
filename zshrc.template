@@ -1,8 +1,8 @@
-# Portable Oh My Zsh cockpit setup.
+# Portable Oh My Zsh setup.
 # Machine-local aliases and secrets should go in ~/.zshrc.local.
 
 export ZSH="$HOME/.oh-my-zsh"
-ZSH_THEME="starship-cockpit"
+ZSH_THEME="headline"
 
 ZOXIDE_CMD_OVERRIDE=cd
 
